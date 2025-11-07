@@ -1,8 +1,7 @@
-// CalendarView.tsx
-import React, { useState, useMemo, useCallback, lazy, Suspense } from 'react';
+import React, { useState, useMemo, lazy, Suspense } from 'react';
 import { CalendarViewProps, CalendarEvent } from './CalendarView.type';
 import { MonthView } from './MonthView';
-import { WeekView } from './WeekView';
+import { WeekView } from './WeekView'; // Optional
 import Button from '../primitives/Button';
 import { format } from 'date-fns';
 import { getCalendarGrid } from '@/utils/date.utils';
@@ -18,33 +17,30 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   initialDate = new Date(),
 }) => {
   const [view, setView] = useState<'month' | 'week'>(initialView);
-  const [currentDate, setCurrentDate] = useState<Date>(initialDate);
+  const [currentDate, setCurrentDate] = useState(initialDate);
   const [events, setEvents] = useState<CalendarEvent[]>(initialEvents);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<CalendarEvent | null>(null);
   const [modalInitialEvent, setModalInitialEvent] = useState<CalendarEvent | null>(null);
-
-  const grid = useMemo(() => getCalendarGrid(currentDate), [currentDate]);
 
   const prev = () => setCurrentDate(d => new Date(d.getFullYear(), d.getMonth() - 1, 1));
   const next = () => setCurrentDate(d => new Date(d.getFullYear(), d.getMonth() + 1, 1));
   const today = () => setCurrentDate(new Date());
 
-  const openCreateForDate = useCallback((date: Date) => {
+  const openCreateForDate = (date: Date) => {
     const evt: CalendarEvent = { id: '', title: '', startDate: date, endDate: date, color: '#3b82f6' };
     setModalInitialEvent(evt);
     setEditingEvent(null);
     setModalOpen(true);
-  }, []);
+  };
 
-  const openEditEvent = useCallback((evt: CalendarEvent) => {
+  const openEditEvent = (evt: CalendarEvent) => {
     setModalInitialEvent(evt);
     setEditingEvent(evt);
     setModalOpen(true);
-  }, []);
+  };
 
-  const handleSave = useCallback((evt: CalendarEvent) => {
+  const handleSave = (evt: CalendarEvent) => {
     if (editingEvent && editingEvent.id) {
       setEvents(prev => prev.map(e => e.id === evt.id ? evt : e));
       onEventUpdate?.(evt.id, evt);
@@ -54,13 +50,13 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       onEventAdd?.(newEv);
     }
     setModalOpen(false);
-  }, [editingEvent, onEventAdd, onEventUpdate]);
+  };
 
-  const handleDelete = useCallback((id: string) => {
+  const handleDelete = (id: string) => {
     setEvents(prev => prev.filter(e => e.id !== id));
     onEventDelete?.(id);
     setModalOpen(false);
-  }, [onEventDelete]);
+  };
 
   return (
     <div className="space-y-4">
@@ -86,8 +82,6 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             events={events}
             onDayClick={openCreateForDate}
             onEventClick={openEditEvent}
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
           />
         ) : (
           <WeekView
@@ -100,7 +94,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       </div>
 
       <Suspense fallback={<div>Loading...</div>}>
-        {modalOpen && modalInitialEvent && (
+        {modalOpen && (
           <EventModal
             isOpen={modalOpen}
             onClose={() => setModalOpen(false)}
