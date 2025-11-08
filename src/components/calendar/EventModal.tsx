@@ -1,9 +1,9 @@
 // src/components/calendar/EventModal.tsx
 import React, { useState, useEffect } from 'react';
-import { CalendarEvent } from './CalendarView.type';
-import Modal from '../primitives/Modal';
-import Button from '../primitives/Button';
-import Select from '../primitives/Select';
+import { CalendarEvent } from './CalendarView.type.js';
+import Modal from '../primitives/Modal.js';
+import Button from '../primitives/Button.js';
+import Select from '../primitives/Select.js';
 
 interface Props {
   isOpen: boolean;
@@ -129,7 +129,7 @@ export const EventModal: React.FC<Props> = ({ isOpen, onClose, onSave, onDelete,
           </div>
         </div>
 
-        <Select options={colorOptions} value={color} onChange={e => setColor(e.target.value)} label="Color" />
+        <Select options={colorOptions} value={color} onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setColor(e.target.value)} label="Color" />
 
         <div className="flex justify-end gap-2 mt-2">
           {initialEvent && onDelete && (

@@ -1,8 +1,9 @@
 // src/App.tsx
 import React, { useState, useEffect, useCallback } from 'react';
-import CalendarView from './components/calendar/CalendarView';
-import { CalendarEvent } from './components/calendar/CalendarView.type';
-import Select from './components/primitives/Select';
+import { CalendarEvent } from './type/calendar.type.js';
+import Select from './components/primitives/Select.js';
+import { CalendarView } from './components/calendar/CalendarView.js';
+
 
 export default function App() {
   const [events, setEvents] = useState<CalendarEvent[]>([]);

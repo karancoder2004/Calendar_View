@@ -6,7 +6,11 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-    },
+      '@': path.resolve('./src') // ab @ se src folder ko refer kar sakte ho
+    }
   },
+  server: {
+    port: 5173,
+    open: true
+  }
 });

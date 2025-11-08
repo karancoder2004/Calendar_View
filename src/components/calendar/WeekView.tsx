@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { CalendarEvent } from './CalendarView.type';
-import { CalendarCell } from './CalendarCell';
-import { getWeekDays, isSameDay } from '@/utils/date.utils';
-import { eventsOnDate } from '@/utils/event.utils';
+import { CalendarEvent } from './CalendarView.type.js';
+import { CalendarCell } from './CalendarCell.js';
+import { getWeekDays, isSameDay } from '../../utils/date.utils.js';
+import { eventsOnDate } from '../../utils/event.utils.js';
 
 interface WeekViewProps {
   currentDate: Date;
@@ -15,10 +15,10 @@ export const WeekView: React.FC<WeekViewProps> = ({
   currentDate,
   events,
   onDayClick,
-  onEventClick
+  onEventClick,
 }) => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const weekDays: Date[] = getWeekDays(currentDate);
+  const weekDays = getWeekDays(currentDate);
 
   const handleSelectDate = (date: Date) => {
     setSelectedDate(date);
@@ -26,7 +26,7 @@ export const WeekView: React.FC<WeekViewProps> = ({
   };
 
   return (
-    <div className="grid grid-cols-7 gap-px bg-neutral-200">
+    <div className="grid grid-cols-7 gap-px bg-gray-300">
       {weekDays.map((date: Date, idx: number) => {
         const dayEvents = eventsOnDate(events, date);
         const isToday = isSameDay(date, new Date());
