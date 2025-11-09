@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarEvent } from '@/components/calendar/CalendarView.type';
+import { CalendarEvent } from '../components/calendar/CalendarView.type.js';
 
 export const useEventManager = (initial: CalendarEvent[] = []) => {
   const [events, setEvents] = useState<CalendarEvent[]>(initial);

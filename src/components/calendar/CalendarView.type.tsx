@@ -15,6 +15,5 @@ export interface CalendarViewProps {
   onEventDelete: (id: string) => void;
   initialView?: 'month' | 'week';
   initialDate?: Date;
-  onEventClick?: (event: CalendarEvent) => void; // ✅ add this
-
+  onEventClick?: (event: CalendarEvent) => void;
 }

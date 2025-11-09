@@ -1,6 +1,5 @@
-import { CalendarEvent } from '@/components/calendar/CalendarView.type';
+import { CalendarEvent } from '../components/calendar/CalendarView.type.js';
 
-// Return events that overlap the given date (day-precision)
 export const eventsOnDate = (events: CalendarEvent[], date: Date) =>
   events.filter(e => {
     const startDay = new Date(e.startDate.getFullYear(), e.startDate.getMonth(), e.startDate.getDate()).getTime();

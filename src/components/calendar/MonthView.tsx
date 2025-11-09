@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { CalendarEvent } from './CalendarView.type';
-import { CalendarCell } from './CalendarCell';
-import { getCalendarGrid, isSameDay } from '@/utils/date.utils';
-import { eventsOnDate } from '@/utils/event.utils';
+import { CalendarEvent } from './CalendarView.type.js';
+import { CalendarCell } from './CalendarCell.js';
+import { getCalendarGrid, isSameDay } from '../../utils/date.utils.js';
+import { eventsOnDate } from '../../utils/event.utils.js';
 
 interface MonthViewProps {
   currentDate: Date;
@@ -21,8 +21,8 @@ export const MonthView: React.FC<MonthViewProps> = ({ currentDate, events, onDay
   };
 
   return (
-    <div className="grid grid-cols-7 gap-px bg-neutral-200">
-      {grid.map((date, idx) => {
+    <div className="grid grid-cols-7 gap-2">
+      {grid.map((date: Date, idx: number) => {
         const dayEvents = eventsOnDate(events, date);
         const isToday = isSameDay(date, new Date());
         const isSelected = selectedDate ? isSameDay(date, selectedDate) : false;
